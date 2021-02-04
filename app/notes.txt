@@ -1,0 +1,71 @@
+NOTE:  There are many lines of code that can be put into a set method or class, in order
+to avoid repetitions of codes.
+
+
+mysql must be installed before using the app, and the following tables must be made as follows:
+
+users:
+create table users (
+    user_id int primary key auto_increment,
+    email varchar(100) unique not null,
+    username varchar(100) unique not null,
+    password_hashed varchar(100) not null,
+    hours_worked int default 0,
+    active json default "{\"active\": false, \"time_id\": null}"
+    );
+
+timelogs:
+create table timelogs (
+    time_id int primary key auto_increment,
+    user_id int not null references users(user_id),
+    time_start datetime,
+    time_stop datetime,
+    hours_shift double(10,2)
+    );
+
+
+the database will be in mysql, or mariaDB.  In order to set it up:
+
+Assuming Linux OS (Manjaro)
+
+MySQL will utilize MariaDB for the database structure
+    $ sudo pacman -S mysql or $ sudo pacman -S mariadb
+
+The first command leads you to two options:
+1) MariaDB
+2) Percona-Server
+
+Choose 1 for MariaDB, afterwards:
+
+    $ sudo systemctl start mysqld
+
+If the command returns an error similar to this:
+    "Job for mariadb.service failed because the control process exited with error code.
+    See “systemctl status mariadb.service” and “journalctl -xe” for details."
+    
+You need to initialize the directory with the following command:
+
+    $ sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+
+if you are this on your terminal:
+    "Installing MariaDB/MySQL system tables in ‘/var/lib/mysql’ …"
+    
+Then you can initialize:
+    sudo systemctl start mysqld && sudo mysql_secure_installation
+    
+Follow the secure installation and it should work afterwards
+
+Once the MySQL is installed and when the username and password has been set, connect to the mysql shell:
+
+open terminal:
+    $ mysql -u {username} -p
+
+you should be prompted to enter your password, connected to MariaDB.
+
+Create the database "timesheetlog"
+    $ create database timesheetlog;
+
+then create the tables referenced above.
+    
+  
+

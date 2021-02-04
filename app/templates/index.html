@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<title>{% block title %}{% endblock %} - TimeSheet Log</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+{% endwith %}
+<nav>
+    <h1><a href="{{ url_for('indexapi') }}">TimeSheet Log</a></h1>
+    <ul>
+        {% if identity %}
+        <li><a href="{{ url_for('profileapi') }}">{{ identity }}</a></li>
+        <li><a href="{{ url_for('logoutapi') }}">Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('registerapi') }}">Register</a></li>
+        <li><a href="{{ url_for('loginapi') }}">Login</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('clockapi') }}">Clock</a></li>
+    </ul>
+</nav>
+<section class="content">
+    <header>
+        {% block header %}
+
+        {% endblock %}
+    </header>
+        {% block content %}
+        {% if not identity %}
+        Welcome, Please login, or register, to continue
+        {% else %}
+        Welcome, {{ identity }}, please select the "Clock" link to clock in/out
+        {% endif %}
+        {% endblock %}
+</section>

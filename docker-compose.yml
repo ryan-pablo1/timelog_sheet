@@ -1,0 +1,39 @@
+version: "3.3"
+services:
+    db:
+        container_name: db
+        build:
+            context: ./db
+            dockerfile: Dockerfile
+        restart: always
+        
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            
+        ports:
+          - "3306:3306/tcp"
+
+        
+        networks: 
+          - host
+
+        volumes:
+                - db_vol:/var/lib/mysql
+          
+
+    app:
+        container_name: app
+        build:
+            context: ./app
+            dockerfile: Dockerfile
+
+        ports:
+          - "5000:5000/tcp"
+
+        networks: 
+          - host
+
+volumes:
+    db_vol:        
+networks:
+    host:

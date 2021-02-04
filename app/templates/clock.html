@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+
+{% block header %}
+    <h1>
+    {% block title %}
+        Hello, {{identity}},
+            {% if active %}
+                You are clocked in.
+            {% endif %}
+        Clocking In/Out
+    {% endblock %}
+    </h1>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% if active == False %}
+        <input type="submit" name="Clock_In" value="Clock In">
+        {% else %}
+        <input type="submit" name="Clock_Out" value="Clock Out">
+        {% endif %}
+    </form>
+{% endblock %}

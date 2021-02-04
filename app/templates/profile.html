@@ -1,0 +1,34 @@
+{% extends 'index.html' %}
+
+{% block header %}
+    <h1>
+    {% block title %}
+        Hello, {{identity}}, 
+            {% if hours_worked %}
+                you have worked {{hours_worked}} hours.
+            {% endif %}
+    {% endblock %}
+    </h1>
+{% endblock %}
+
+{% block content %}
+    {% if identity != None %}
+        <table style="width: 100%;">
+            <tr>
+                <th>Time Start</th>
+                <th>Time Stop</th>
+                <th>Hours</th>
+            </tr>
+
+            {% for row in log %}
+            <tr>
+                <td>{{row.time_start}}</td>
+                <td>{{row.time_stop}}</td>
+                <td>{{row.hours_shift}}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    {% endif %}
+{% endblock %}

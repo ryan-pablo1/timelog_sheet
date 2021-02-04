@@ -1,0 +1,11 @@
+# pycache folder
+.app/__pycache__/
+
+#.vscode
+.app/vscode/
+
+#pycache folder within multiple directories
+.app/api/__pycache__/
+.app/models/__pycache__/
+.app/resources/__pycache__/
+.app/tools/__pycache__/

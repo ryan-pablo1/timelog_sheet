@@ -1,0 +1,13 @@
+Flask
+Flask-Bcrypt
+Flask-JWT-Extended
+Flask-Login
+Flask-mongoengine
+Flask-MySQL
+Flask-RESTful
+Flask-SQLAlchemy
+FLask-MySqldb
+Flask-WTF
+Werkzeug
+SQLAlchemy
+mysql-connector-python

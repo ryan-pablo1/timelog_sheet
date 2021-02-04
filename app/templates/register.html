@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+{% block header %}
+    <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        <label for="email_input">Email</label>
+        <input type="email" name="email_input" id="email_input" required>
+        <label for="username_input">Username</label>
+        <input name="username_input" id="username_input" required>
+        <label for="password">Password</label>
+        <input type="password" name="password_input" id="password_input" required>
+        <input type="submit" value="Register">
+    </form>
+{% endblock %}
