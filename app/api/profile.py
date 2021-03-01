@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.sql.expression import func
 import json
 from datetime import datetime as dt
-from flask_jwt_extended import get_jwt_claims,fresh_jwt_required,create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, jwt_optional
+from flask_jwt_extended import get_jwt,create_access_token, create_refresh_token, jwt_required, get_jwt_identity, set_access_cookies, set_refresh_cookies, unset_jwt_cookies
 import sys
 
 #importing local packages

@@ -1,7 +1,7 @@
 from flask import Response, request, render_template, make_response, redirect, url_for, jsonify, flash
 from flask_restful import Resource, Api
 from flask_login import LoginManager
-from flask_jwt_extended import get_jwt_claims,fresh_jwt_required,create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, set_access_cookies, set_refresh_cookies, unset_jwt_cookies, jwt_optional
+from flask_jwt_extended import get_jwt,create_access_token, create_refresh_token, jwt_required, get_jwt_identity, set_access_cookies, set_refresh_cookies, unset_jwt_cookies
 
 from sqlalchemy.exc import SQLAlchemyError
 import datetime
@@ -34,7 +34,7 @@ class RegisterApi(Resource):
     >>> api.add_resource(Register, 'authentication/register')
 
     '''
-    @jwt_optional
+    @jwt_required(optional=True)
     def get(self) -> Response:
         '''
         GET response method for requesting a register form for creating a user
@@ -102,7 +102,7 @@ class LoginApi(Resource):
     >>> api.add_resource(Register, 'authentication/login')
 
     '''
-    @jwt_optional
+    @jwt_required(optional=True)
     def get(self) -> Response:
         '''
         GET response method for requesting a register form for creating a user
@@ -119,7 +119,7 @@ class LoginApi(Resource):
             flash(f'You are already logged in as: {identity}')
             return make_response(redirect(url_for('indexapi')))
 
-    @jwt_optional
+    @jwt_required(optional=True)
     def post(self) -> Response:
         '''
         POST response method for creating user.
@@ -169,7 +169,7 @@ class LoginApi(Resource):
 
                         return response_
 
-                    #Is the password provided is incorrect
+                    #If the password provided is incorrect
                     else:
                         flash('Sorry, incorrect username and/or password, please try again.')
                         return make_response(render_template('login.html'))
@@ -207,7 +207,7 @@ class LogoutApi(Resource):
     >>> api.add_resource(LogoutApi, 'authentication/login')
     '''
 
-    @jwt_optional
+    @jwt_required(optional=True)
     def get(self) -> Response:
         #getting jwt identity, if it exists
         identity = get_jwt_identity()

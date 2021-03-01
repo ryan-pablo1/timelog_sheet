@@ -1,5 +1,5 @@
 from flask import Response, jsonify, url_for, redirect, make_response, flash, render_template
-from flask_jwt_extended import unset_jwt_cookies,JWTManager, jwt_required, create_access_token, get_jwt_claims, get_jwt_identity
+from flask_jwt_extended import unset_jwt_cookies,JWTManager, jwt_required, create_access_token, get_jwt, get_jwt_identity
 
 import datetime as dt
 from database import Database as DB
@@ -27,9 +27,3 @@ def call_expired_token_loader(expired_token):
     unset_jwt_cookies(resp)
 
     return resp
-
-# still working on the storing claims data on JWT
-# **NOTE: The user_claims_loader decorator only works when utilizing the '@jwt_required' and '@jwt_optional'.  have attempted to use '@jwt_refresh_token_required'.  otherwise, the claims will not be loaded into the Response
-@jwt.user_claims_loader
-def add_claims_to_token(identity):
-    pass

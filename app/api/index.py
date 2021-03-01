@@ -1,5 +1,5 @@
 from flask import Response, render_template, make_response, request, url_for, jsonify
-from flask_jwt_extended import get_jwt_identity, jwt_optional, get_jwt_claims
+from flask_jwt_extended import get_jwt_identity, get_jwt, jwt_required
 from flask_restful import Resource, Api
 
 class IndexApi(Resource):
@@ -18,7 +18,7 @@ class IndexApi(Resource):
     >>> api = Api(app=app)
 
     '''
-    @jwt_optional
+    @jwt_required(optional=True)
     def get(self) -> Response:
         identity = get_jwt_identity()
         # claims = get_jwt_claims()

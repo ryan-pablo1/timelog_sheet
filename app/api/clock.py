@@ -1,7 +1,7 @@
 #import flask and extensions
 from flask import flash,Response, request, jsonify, render_template, make_response, session, redirect, url_for
 from flask_restful import Resource, Api
-from flask_jwt_extended import unset_jwt_cookies,create_refresh_token,set_access_cookies,set_refresh_cookies,create_access_token,get_jwt_claims,fresh_jwt_required, get_jwt_identity, jwt_required, jwt_refresh_token_required
+from flask_jwt_extended import unset_jwt_cookies,create_refresh_token,set_access_cookies,set_refresh_cookies,create_access_token,get_jwt, get_jwt_identity, jwt_required
 from sqlalchemy.sql.expression import func
 from sqlalchemy.exc import SQLAlchemyError
 import json
@@ -30,7 +30,7 @@ class ClockApi(Resource):
     >>> api = Api(app=app)
     >>> api.add_resource(ClockApi, '/clock')
     '''
-    @jwt_required
+    @jwt_required()
     def get(self) -> Response:
         '''
         GET response method for the clock.html in order to clock in/out
@@ -51,7 +51,7 @@ class ClockApi(Resource):
         except TypeError:
             return make_response(render_template('clock.html', identity=current_username, active=active_json['active']))
 
-    @jwt_required
+    @jwt_required()
     def post(self) -> Response:
         '''
         POST response method for clocking in/out
