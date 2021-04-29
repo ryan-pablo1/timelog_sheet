@@ -10,6 +10,10 @@ body {
   background: white;
 }
 
+table, th, td, tr {
+  border: 2px solid whitesmoke;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: serif;
   color: #377ba8;

@@ -31,7 +31,7 @@ class ProfileApi(Resource):
     >>> api.add_resource(ProfileApi, 'profile')
     '''
 
-    @jwt_required
+    @jwt_required()
     def get(self) -> Response:
         """
         GET response for displaying user's time log.
@@ -39,10 +39,14 @@ class ProfileApi(Resource):
         :return: HTML
         """
 
+        print('grabbing jwt identity')
+
         #Collects the jwt current user identity, and query's the database for the said user
         current_username = get_jwt_identity()
         current_user = DB().db_session.query(Users).filter_by(username=current_username).first()
         hours_worked = current_user.hours_worked
+
+        print('pass')
 
         #Selects the timelogs based on user_id foreign key
         time_log = DB().db_session.query(timelogs).filter_by(user_id=current_user.user_id).all()
@@ -52,7 +56,7 @@ class ProfileApi(Resource):
         try:
             time_log_stop = [dt.strftime(row.time_stop, "%Y-%m-%d %H:%M:%S") for row in time_log]
         except TypeError:
-            pass
+            print('pass')
         time_log_hours = [row.hours_shift for row in time_log]
 
         #Decided to only utilized the time_log variable and use flask for iterating the columns on the profile.html. Added the hours_worked variable
